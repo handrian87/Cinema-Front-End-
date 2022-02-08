@@ -1,0 +1,45 @@
+<div class="containter">
+  <div class="row">
+    <div class="col-md-2">
+      <ul *ngIf="villes" class="list-group">
+        <li [ngClass]="v==currentVille ? 'active': ''" *ngFor="let v of villes._embedded.villes" class="list-group-item clickable"
+            (click)="onGetCinema(v)">
+          {{v.name}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="card" style="width: 50rem">
+        <div class="card-header">
+          Liste des Cinémas
+        </div>
+        <div class="card-body">
+          <ul *ngIf="cinemas" class="nav">
+            <li *ngFor="let c of cinemas._embedded.cinemas"
+                class="nav-item">
+              <a class="nav-link clickable" (click)="onGetSalles(c)">{{c.name}}</a>
+            </li>
+          </ul>
+          <div class="container">
+            <div class="row">
+              <div>
+                <div *ngIf="salles">
+                  <div *ngFor="let s of salles._embedded.salles; let i=index">
+                    <div class="card" style="width: 15rem; margin-bottom: 1rem">
+                      <div class="card-header col-md-4" style="width: 15rem;">
+                        {{s.name}}
+                      </div>
+                      <div class="card-body" *ngIf="s.projectionFilms">
+                        <img src="{{cinemaService.host+'/imageFilm/'+s.projectionFilms._embedded.projectionFilms[i+1].film.id}} " style="width: 5rem; height: 6rem">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
