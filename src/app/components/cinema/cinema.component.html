@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
           <ul *ngIf="cinemas" class="nav">
-            <li *ngFor="let c of cinemas._embedded.cinemas"
+            <li  *ngFor="let c of cinemas._embedded.cinemas"
                 class="nav-item">
               <a class="nav-link clickable" (click)="onGetSalles(c)">{{c.name}}</a>
             </li>
@@ -42,11 +42,20 @@
                               <div class="col-md-8">
                                 <ul class="list-group">
                                   <li class="list-group-item">Séances</li>
-                                  <li (click)="onGetTicketsPlace(p)" *ngFor="let p of s.projectionFilms._embedded.projectionFilms" class="list-group-item">
+                                  <li [ngClass]="p==currentProjection ? 'active': ''" (click)="onGetTicketsPlace(p)" *ngFor="let p of s.projectionFilms._embedded.projectionFilms" class="list-group-item clickable">
                                     Start: {{p.seance.heureDebut}} - Prix: {{p.prix}} $
                                   </li>
                                 </ul>
                               </div>
+                            </div>
+                            <div *ngIf="currentProjection">
+<!--                              <div *ngIf="currentProjection.salle.id==s.id">-->
+                                <div class="row" *ngIf="currentProjection.ticket">
+                                  <button *ngFor="let t of currentProjection.ticket._embedded.tickets" class="btn btn-success margin">
+                                    {{t.place.numero}}
+                                  </button>
+                                </div>
+<!--                              </div>-->
                             </div>
                           </div>
                         </div>

@@ -27,6 +27,7 @@ export class CinemaComponent implements OnInit {
   }
 
   onGetCinema(v:any) {
+    this.salles=undefined;
     this.currentVille = v;
 
     this.cinemaService.getCinema(v)
@@ -55,9 +56,11 @@ export class CinemaComponent implements OnInit {
 
   onGetTicketsPlace(p:any) {
     this.currentProjection=p;
+    console.log('*****result-click*****');
+    console.log(p);
     this.cinemaService.getTicketsPlaces(p)
       .subscribe(data => {
-        this.currentProjection.tickets=data;
+        this.currentProjection.ticket=data;
       }, err=> {
         console.log(err);
       })
